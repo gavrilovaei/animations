@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title> усложнённая анимация карточки товара</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+   <style>
+      /* Анимация будет такова: псевдоэлемент карточки ::before меняет угол наклона. Изображение товара сдвигается и немного меняет масштаб. Описание товара также немного сдвигается. Появляется кнопка «Купить» и название бренда, которое добавлено с помощью псевдоэлемента ::after для карточки. */
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         background-color: #24305e;
+      }
+
+      .tools {
+         padding: 50px;
+      }
+
+      .tools-card {
+         position: relative;
+         z-index: 1;
+
+         display: flex;
+         flex-direction: column;
+         width: 350px;
+         padding: 24px 0;
+         overflow: hidden;
+
+         font-family: "Montserrat", "Arial", sans-serif;
+
+         background-color: #374785;
+         border-radius: 10px;
+
+         justify-self: center;
+      }
+
+      /* 1.1 Начнём с псевдоэлемента .tools-card::before. Это прямоугольник, который сдвинули наверх translateY(-60%) и сделали параллелограммом вдоль вертикали с помощью skewY(-10deg). */
+      .tools-card::before {
+         content: "";
+         /* По логике браузера абсолютный псевдоэлемент накладывается поверх блока */
+         position: absolute;
+         top: 0;
+         left: 0;
+         /* Отрицательный z-index опустит before ниже содержимого tools-card, но оставит выше его background */
+         z-index: -1;
+
+         width: 100%;
+         height: 100%;
+
+         background-color: #a8d0e6;
+         transform: translateY(-60%) skewY(-10deg);
+
+         transition: transform 0.6s ease;
+      }
+
+      /* 3.1 Название бренда добавляется в псевдоэлемент tools-card::after с помощью data-атрибута data-brand из разметки. Изначально текст размыт с помощью фильтра filter: blur(10px). */
+      .tools-card::after {
+         content: attr(data-brand);
+         position: absolute;
+         top: 80%;
+         left: 50%;
+         z-index: -1;
+
+         font-weight: 700;
+         font-size: 80px;
+         line-height: 100%;
+         text-align: center;
+         color: rgba(0, 0, 0, 0.1);
+         white-space: nowrap;
+
+         transform: translate(-50%, -50%);
+         filter: blur(10px);
+
+         transition: filter 0.6s ease;
+      }
+
+      /* 2.1 Картинка tools-card__img и описание tools-card__content изначально опущены на 50px и при наведении поднимаются выше. Картинка немного уменьшается. */
+      .tools-card__img {
+         margin-bottom: 20px;
+
+         transform: translateY(50px) scale(1.1);
+
+         transition: transform 0.6s ease;
+      }
+
+      .tools-card__content {
+         display: flex;
+         flex-grow: 1;
+         flex-direction: column;
+         padding: 20px;
+
+         transform: translateY(50px);
+
+         transition: transform 0.6s ease;
+      }
+
+      .tools-card__title {
+         margin: 0 0 20px 0;
+
+         font-weight: 500;
+         font-size: 24px;
+         color: #ffffff;
+      }
+
+      /* 2.2 Кнопка tools-card__buy-btn изначально прозрачная, её не видно. */
+      .tools-card__buy-btn {
+         align-self: flex-start;
+         margin-top: auto;
+         padding: 8px 24px;
+
+         font-weight: 500;
+         font-size: 24px;
+         line-height: 150%;
+         font-family: inherit;
+         color: #ffffff;
+
+         background-color: #f76c6c;
+         border: none;
+         border-radius: 10px;
+         visibility: hidden;
+         cursor: pointer;
+         opacity: 0;
+
+         transition: background-color 0.3s ease, color 0.3s ease, visibility 0.3s ease, opacity 0.3s ease;
+      }
+
+      /* 2.3 При наведении на карточку кнопкa поднимается наверх вместе с описанием и становится непрозрачной.
+Обратите внимание, что для скрытия кнопки используются два свойства, а не одно, т. к. если оставить просто opacity, то элемент остается все еще кликабельным и может произойти нежелательный сценарий. Добавив visibility: hidden; мы предусмотрели его. */
+      .tools-card__buy-btn:hover,
+      .tools-card__buy-btn:focus {
+         color: #f76c6c;
+
+         background-color: #f8e9a1;
+      }
+
+      .tools-card:hover .tools-card__content,
+      .tools-card:focus .tools-card__content {
+         transform: translateY(0);
+      }
+
+      /* 1.2 При наведении на карточку угол наклона skewY(10deg) меняется на противоположный, создавая нужный эффект. */
+      .tools-card:hover::before,
+      .tools-card:focus-within::before {
+         transform: translateY(-60%) skewY(10deg);
+      }
+
+      /* 3.2 При наведении на карточку фильтр снимается, текст становится виден. */
+      .tools-card:hover::after,
+      .tools-card:focus-within::after {
+         filter: blur(0);
+      }
+
+      .tools-card:hover .tools-card__img,
+      .tools-card:focus-within .tools-card__img {
+         transform: translateY(0) scale(1);
+      }
+
+      .tools-card:hover .tools-card__buy-btn,
+      .tools-card:focus-within .tools-card__buy-btn {
+         visibility: visible;
+         opacity: 1;
+
+         transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease 0.2s;
+      }
+
+      .tools-card:hover .tools-card__content,
+      .tools-card:focus-within .tools-card__content {
+         transform: translateY(0);
+      }
+
+      /* Псевдоэлемент карточки ::before меняет угол наклона. Изображение товара сдвигается и немного меняет масштаб. Описание товара также немного сдвигается. Появляется кнопка «Купить» и название бренда, которое добавлено с помощью псевдоэлемента ::after для карточки. */
+   </style>
+</head>
+
+<body>
+   <section class="tools">
+      <div class="tools__wrapper">
+         <article class="tools__card tools-card" data-brand="Tekton" tabindex="0">
+            <div class="tools-card__img">
+               <img src="tools-card-2.png" width="350" height="220" alt="Инструменты">
+            </div>
+            <div class="tools-card__content">
+               <h2 class="tools-card__title">Набор инструментов, 65&nbsp;предметов</h2>
+               <button class="tools-card__buy-btn" type="button">Купить</button>
+            </div>
+         </article>
+      </div>
+   </section>
+</body>
+
+</html>

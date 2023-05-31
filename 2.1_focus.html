@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title></title>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+      }
+
+      .tools {
+         padding: 50px;
+         background-color: #24305e;
+      }
+
+      .tools-card {
+         position: relative;
+         z-index: 1;
+
+         display: flex;
+         flex-direction: column;
+         width: 350px;
+         padding: 24px 0;
+         overflow: hidden;
+
+         font-family: "Montserrat", "Arial", sans-serif;
+
+         background-color: #374785;
+         border-radius: 10px;
+
+         justify-self: center;
+      }
+
+      .tools-card::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: -1;
+
+         width: 100%;
+         height: 100%;
+
+         background-color: #a8d0e6;
+         transform: translateY(-60%) skewY(-10deg);
+
+         transition: transform 0.6s ease;
+      }
+
+      .tools-card::after {
+         content: attr(data-brand);
+         position: absolute;
+         top: 80%;
+         left: 50%;
+         z-index: -1;
+
+         font-weight: 700;
+         font-size: 80px;
+         line-height: 100%;
+         text-align: center;
+         color: rgba(0, 0, 0, 0.1);
+         white-space: nowrap;
+
+         transform: translate(-50%, -50%);
+         filter: blur(10px);
+
+         transition: filter 0.6s ease;
+      }
+
+      .tools-card__img {
+         margin-bottom: 20px;
+
+         transform: translateY(50px) scale(1.1);
+
+         transition: transform 0.6s ease;
+      }
+
+      .tools-card__content {
+         display: flex;
+         flex-grow: 1;
+         flex-direction: column;
+         padding: 20px;
+
+         transform: translateY(50px);
+
+         transition: transform 0.6s ease;
+      }
+
+      .tools-card__title {
+         margin: 0 0 20px 0;
+
+         font-weight: 500;
+         font-size: 24px;
+         color: #ffffff;
+      }
+
+      .tools-card__buy-btn {
+         align-self: flex-start;
+         margin-top: auto;
+         padding: 8px 24px;
+
+         font-weight: 500;
+         font-size: 24px;
+         line-height: 150%;
+         font-family: inherit;
+         color: #ffffff;
+
+         background-color: #f76c6c;
+         border: none;
+         border-radius: 10px;
+         visibility: hidden;
+         cursor: pointer;
+         opacity: 0;
+
+         transition: background-color 0.3s ease, color 0.3s ease, visibility 0.3s ease, opacity 0.3s ease;
+      }
+
+      .tools-card__buy-btn:hover,
+      /* 2) Чтобы анимация сработала, добавим карточке к уже готовому наведению состояние фокуса. */
+      .tools-card__buy-btn:focus {
+         color: #f76c6c;
+         background-color: #f8e9a1;
+      }
+
+      .tools-card:hover::before,
+      /* 2) */
+      .tools-card:focus::before,
+      /* 3) Добавим :focus-within к уже имеющимся состояниям. Теперь можно «дотянуться» Табом и до кнопки, всё работает верно! */
+      .tools-card:focus-within::before {
+         transform: translateY(-60%) skewY(10deg);
+      }
+
+      .tools-card:hover::after,
+      /* 2) */
+      .tools-card:focus::after,
+      /* 3) */
+      .tools-card:focus-within::after {
+         filter: blur(0);
+      }
+
+      .tools-card:hover .tools-card__img,
+      /* 2) */
+      .tools-card:focus .tools-card__img,
+      /* 3) */
+      .tools-card:focus-within .tools-card__img {
+         transform: translateY(0) scale(1);
+      }
+
+      .tools-card:hover .tools-card__buy-btn,
+      /* 2) */
+      .tools-card:focus .tools-card__buy-btn,
+      /* 3) */
+      .tools-card:focus-within .tools-card__buy-btn {
+         visibility: visible;
+         opacity: 1;
+
+         transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease 0.2s;
+      }
+
+      .tools-card:hover .tools-card__content,
+      /* 2) */
+      .tools-card:focus .tools-card__content,
+      /* 3) */
+      .tools-card:focus-within .tools-card__content {
+         transform: translateY(0);
+      }
+   </style>
+</head>
+
+<body>
+   <section class="tools">
+      <div class="tools__wrapper">
+         <article class="tools__card tools-card" tabindex="0" data-brand="Tekton">
+            <!--1)Чтобы можно было попасть на карточку Табом, добавим ей в разметке tabindex-->
+            <div class="tools-card__img">
+               <img src="tools-card-2.png" width="350" height="220" alt="Инструменты">
+            </div>
+            <div class="tools-card__content">
+               <h2 class="tools-card__title">Набор инструментов, 65&nbsp;предметов</h2>
+               <button class="tools-card__buy-btn" type="button">Купить</button>
+            </div>
+         </article>
+      </div>
+   </section>
+</body>
+
+</html>

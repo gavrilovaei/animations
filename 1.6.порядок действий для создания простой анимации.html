@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>С чего начать делать анимацию</title>
+   <style>
+      body {
+         padding: 50px;
+         background-color: #2d2d44;
+      }
+
+      .link {
+         display: inline-block;
+         margin: 10px;
+         padding: 16px 22px;
+
+         font-family: Arial, Helvetica, sans-serif;
+         font-weight: 500;
+         font-size: 20px;
+         line-height: 100%;
+         color: #ffffff;
+         text-decoration: none;
+
+         background-color: #3c6ed0;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+
+         /* анимация перехода к свойствам эемента при наведении курсора - свойства, время перехода, форма перехода, задежка */
+         transition-property: opacity, background-color;
+         transition-duration: 0.3s;
+         transition-timing-function: ease;
+         transition-delay: 0.1s;
+      }
+
+      /* свойства элемента при наведении курсора: */
+      .link:hover {
+         opacity: 0.6;
+         background-color: #a53cd0;
+      }
+   </style>
+</head>
+
+<body>
+   <a class="link" href="#">click me</a>
+</body>
+
+</html>

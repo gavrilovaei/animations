@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+}
+
+.btn {
+  font-family: inherit;
+  display: block;
+  margin-bottom: 40px;
+}
+
+.btn--1 {
+  padding: 20px 40px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  background-color: #FF2F64;
+  border: none;
+  border-radius: 30px;
+  outline: 4px solid rgba(255, 47, 100, 0.3);
+  box-shadow: 0px 4px 12px rgba(45, 52, 64, 0.3);
+  transition: outline-color 0.3s ease, box-shasow 0.3s ease;
+}
+
+.btn--1:hover, .btn--1:focus {
+  outline-color: rgba(255, 47, 100, 0.6);
+  box-shadow: 0px 4px 4px rgba(45, 52, 64, 0.3);
+}
+
+.btn--2 {
+  padding: 20px 40px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 20px;
+  background-color: #FF2F64;
+  border: none;
+  outline: 4px solid rgba(255, 47, 100, 0.3);
+  border-radius: 30px;
+  transition: outline-color 0.3s ease 0.2s, color 0.3s ease, background-color 0.3s ease;
+}
+
+.btn--2:hover, .btn--2:focus {
+  outline-color: #ff2f64;
+  color: #2D3440;
+  background-color: #ffffff;
+}
+
+.btn--3 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 17px 34px;
+  background-color: transparent;
+  color: #000000;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease 0s, border-color 0.3s ease;
+}
+
+.btn--3:hover, .btn--3:focus {
+  background-color: #000000;
+  color: #ffffff;
+  border-color: black;
+
+  transition: background-color 0.3s ease, color 0.3s ease 0.25s, border-color 0.3s ease;
+}
+
+.btn--4 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 17px 34px;
+  background-color: #000000;
+  color: #ffffff;
+  border: 3px dotted rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn--4:hover, .btn--43:focus {
+  background-color: #ffffff;
+  color: #000000;
+}

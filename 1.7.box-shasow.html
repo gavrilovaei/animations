@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>box-shasow</title>
+   <style>
+      body {
+  padding: 50px;
+  background-color: #2d2d44;
+}
+
+.btn {
+  margin: 10px;
+  padding: 16px 22px;
+
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  color: #ffffff;
+  text-decoration: none;
+
+  background-color: #3c6ed0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: box-shadow 0.3s ease;
+}
+
+.btn--1:hover,
+.btn--1:focus {
+  box-shadow: 0 0 10px 0 #3c6ed0;
+}
+.btn--1:active {
+  box-shadow: 0 0 5px 0 #3c6ed0;
+}
+
+.btn--2:hover,
+.btn--2:focus {
+  box-shadow: 0 0 0px 3px #cbd1dd;
+}
+.btn--2:active {
+  box-shadow: 0 0 0px 1px #cbd1dd;
+}
+
+.btn--3:hover,
+.btn--3:focus {
+  box-shadow: 4px 4px 0px 0px #cbd1dd;
+}
+.btn--3:active {
+  box-shadow: 2px 2px 0px 0px #cbd1dd;
+}
+
+.btn--4:hover,
+.btn--4:focus {
+  box-shadow: -2px -2px 0px 2px #cbd1dd, 0px 0px 0px 4px #979ba3;
+}
+.btn--4:active {
+  box-shadow: -1px -1px 0px 1px #cbd1dd, 0px 0px 0px 2px #979ba3;
+}
+
+   </style>
+</head>
+<body>
+   <button class="btn btn--1" type="button">box-shadow</button>
+   <button class="btn btn--2" type="button">box-shadow</button>
+   <button class="btn btn--3" type="button">box-shadow</button>
+   <button class="btn btn--4" type="button">box-shadow</button>
+</body>
+</html>

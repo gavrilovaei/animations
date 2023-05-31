@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>transition-timing-function</title>
+   <style>
+      body {
+         padding: 50px;
+         background-color: #2d2d44;
+      }
+
+      .manual {
+         font-family: "TT Norms Pro", "Arial", sans-serif;
+         color: #ffffff;
+      }
+
+      .btn {
+         position: relative;
+         margin: 10px;
+         padding: 16px 22px;
+         min-width: 151px;
+
+         font-weight: 500;
+         font-size: 20px;
+         line-height: 100%;
+         color: #ffffff;
+         text-decoration: none;
+
+         background-color: #3c6ed0;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+         transition: color 0.5s linear;
+         overflow: hidden;
+      }
+
+      .btn span {
+         z-index: 2;
+         position: relative;
+      }
+
+      .btn::before {
+         content: '';
+
+         position: absolute;
+         inset: 0;
+         z-index: 1;
+         background-color: #e8e6d8;
+         transform: translateX(-105%) skew(10deg);
+         transition-property: transform;
+         transition-timing-function: linear;
+         transition-duration: 1s;
+      }
+
+      .btn--01::before {
+         transition-timing-function: ease-in;
+      }
+
+      .btn--03::before {
+         transition-timing-function: ease-in-out;
+      }
+
+      .btn--06::before {
+         transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+      }
+
+      .btn--1::before {
+         transition-timing-function: step-start;
+      }
+
+      .btn:hover::before,
+      .btn:focus::before {
+         transform: translateX(0) skew(25deg) scale(1.15);
+      }
+
+      .btn:hover,
+      .btn:focus {
+         color: #2c2c2c;
+      }
+   </style>
+</head>
+
+<body>
+   <button class="btn" type="button">
+      <span>linear</span>
+   </button>
+   <button class="btn btn--01" type="button">
+      <span>ease-in</span>
+   </button>
+   <button class="btn btn--03" type="button">
+      <span>ease-in-out</span>
+   </button>
+   <button class="btn btn--06" type="button">
+      <span>cubic-bezier</span>
+   </button>
+   <button class="btn btn--1" type="button">
+      <span>step-start</span>
+   </button>
+</body>
+
+</html>

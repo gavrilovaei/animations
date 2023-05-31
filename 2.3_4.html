@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title>Анимация карточки с использованием clip-path</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         font-family: "Montserrat", "Arial", sans-serif;
+         background-color: #111111;
+      }
+
+      .two-col {
+         display: flex;
+         flex-wrap: wrap;
+         gap: 30px;
+         padding: 50px;
+      }
+
+      .article {
+         position: relative;
+         width: 300px;
+         flex-shrink: 0;
+
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         overflow: hidden;
+
+         border-radius: 10px;
+         box-shadow: 0 0 0px 2px #fb3ebc;
+
+         transition: box-shadow 0.6s;
+      }
+
+      .article__more {
+         position: absolute;
+
+         font-weight: 500;
+         color: #ffffff;
+      }
+
+      .article__content {
+         z-index: 1;
+
+         width: 100%;
+         height: 100%;
+         padding: 20px;
+
+         color: #ffffff;
+
+         background: linear-gradient(to right, #fb3ebc, #b51cca, #3226d6);
+         border-radius: 10px;
+      }
+
+      /* Анимация карточки с использованием clip-path: circle(). Сначала текстовая область скрыта кругом (с радиусом равным нулю) в центре карточки. */
+      .article--circle .article__content {
+         transition: clip-path 0.6s ease;
+
+         clip-path: circle(0% at 50% 50%);
+      }
+
+      .article:hover,
+      .article:focus-within {
+         box-shadow: 0 0 40px 1px #fb3ebc;
+      }
+
+      /* При наведении эта область увеличивается до круга радиусом более половины карточки. В нашем случае это 70%. */
+      .article--circle:hover .article__content,
+      .article--circle:focus-within .article__content {
+         clip-path: circle(70.7% at 50% 50%);
+      }
+   </style>
+</head>
+
+<body>
+   <div class="two-col">
+      <article class="article article--circle" tabindex="0">
+         <span class="article__more">circle</span>
+         <div class="article__content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad necessitatibus fugiat, maxime voluptatum
+               nemo ullam consectetur sed tempore dolores dolor cupiditate fugit doloribus explicabo facere rerum
+               eveniet neque enim assumenda.</p>
+         </div>
+      </article>
+   </div>
+</body>
+
+</html>

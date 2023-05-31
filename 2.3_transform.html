@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title>Анимации кнопок с использованием transform и transform-origin</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         font-family: "Montserrat", "Arial", sans-serif;
+         background-color: #111111;
+      }
+
+      .wrap {
+         padding: 50px;
+      }
+
+      .btn {
+         position: relative;
+         z-index: 1;
+
+         width: 200px;
+         min-height: 38px;
+         padding: 10px;
+         margin: 20px;
+
+         font-weight: 700;
+         color: #ffffff;
+         text-transform: uppercase;
+
+         background-color: rgba(0, 0, 0, 0);
+         border: none;
+         box-shadow: inset 0 0 0 1px #006c84;
+         cursor: pointer;
+      }
+
+      .btn:focus-visible {
+         outline: 0;
+      }
+
+      .btn::before,
+      .btn::after {
+         content: "";
+         position: absolute;
+         z-index: -1;
+
+         background-color: #006c84;
+
+         transition: transform 0.3s ease;
+         will-change: transform;
+      }
+
+      /* Для первой кнопки создаётся псевдоэлемент ::before, который сжат с помощью transform: scaleX к левой грани кнопки и разворачивается во всю её ширину при наведении и фокусе. */
+      .btn--1::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         transform: scaleX(0);
+         transform-origin: left;
+      }
+
+      .btn--1:hover::before {
+         transform: scaleX(1);
+      }
+
+      .btn--1:focus-visible::before {
+         transform: scaleX(1);
+      }
+
+      /* Для второй кнопки создаётся псевдоэлемент ::before, который сжат с помощью transform: scaleY к центру кнопки и разворачивается во всю её высоту при наведении и фокусе. */
+      .btn--2::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         transform: scaleY(0);
+      }
+
+      .btn--2:hover::before {
+         transform: scaleX(1);
+      }
+
+      .btn--2:focus-visible::before {
+         transform: scaleX(1);
+      }
+
+      /* Для третьей кнопки создаются два псевдоэлемента: первый сжат у левой грани кнопки, второй — у правой. При наведении/фокусе они разворачиваются к центру кнопки наполовину со scaleX(0.5) */
+      .btn--3::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         transform: scaleX(0);
+         transform-origin: left;
+      }
+
+      .btn--3::after {
+         top: 0;
+         right: 0;
+
+         width: 100%;
+         height: 100%;
+
+         transform: scaleX(0);
+         transform-origin: right;
+      }
+
+      .btn--3:hover::before {
+         transform: scaleX(0.5);
+      }
+
+      .btn--3:hover::after {
+         transform: scaleX(0.5);
+      }
+
+      .btn--3:focus-visible::before {
+         transform: scaleX(0.5);
+      }
+
+      .btn--3:focus-visible::after {
+         transform: scaleX(0.5);
+      }
+
+      /* Для четвёртой кнопки создаются два псевдоэлемента. Первый — без фона и с вертикальными рамками. Он прижат к нижней грани кнопки и разворачивается с помощью scaleY во всю её высоту. Второй имеет фон и прижат к верхней грани кнопки. Он разворачивается с задержкой в 0,3 секунды также во всю высоту кнопки. */
+      .btn--4 {
+         box-shadow: none;
+      }
+
+      .btn--4::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         background-color: rgba(0, 0, 0, 0);
+
+         border-left: 1px solid #006c84;
+         border-right: 1px solid #006c84;
+
+         transform: scaleY(0);
+         transform-origin: bottom;
+
+         transition: transform 0.3s ease 0.3s;
+      }
+
+      .btn--4::after {
+         top: 0;
+         right: 0;
+
+         width: 100%;
+         height: 100%;
+
+         transform: scaleY(0);
+         transform-origin: top;
+
+         transition: transform 0.3s ease;
+      }
+
+      .btn--4:hover::before {
+         transform: scaleY(1);
+         transition: transform 0.3s ease;
+      }
+
+      .btn--4:hover::after {
+         transform: scaleY(1);
+         transition: transform 0.3s ease 0.3s;
+      }
+
+      .btn--4:focus-visible::before {
+         transform: scaleY(1);
+         transition: transform 0.3s ease;
+      }
+
+      .btn--4:focus-visible::after {
+         transform: scaleY(1);
+         transition: transform 0.3s ease 0.3s;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="wrap">
+      <button class="btn btn--1" type="button">transform</button>
+      <button class="btn btn--2" type="button">transform</button>
+      <button class="btn btn--3" type="button">transform</button>
+      <button class="btn btn--4" type="button">transform</button>
+   </div>
+</body>
+
+</html>
