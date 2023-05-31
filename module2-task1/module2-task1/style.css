@@ -74,17 +74,31 @@ body {
 
 .shoes-card__img img {
   z-index: 1;
+    /*  */
+    transform: rotate(0deg);
+}
+
+/*  */
+.shoes-card:hover .shoes-card__img img {
+  transform: rotate(-25deg);
+  transition: transform 0.3s ease;
 }
 
 .shoes-card__img::before {
   content: "";
   position: absolute;
-
-  width: 192px;
-  height: 192px;
+/* было по 192px */
+  width: 100%;
+  height: 120%;
 
   background-color: #68bf2c;
-  border-radius: 50%;
+  /* border-radius: 50%; */
+  clip-path: circle(20%);
+  transition: clip-path 0.3s ease;
+}
+
+.shoes-card:hover .shoes-card__img::before {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
 
 .shoes-card__img--gold::before {
@@ -132,3 +146,5 @@ body {
 .shoes-card:hover .shoes-card__buy-btn {
   background-color: #012e72;
 }
+
+
