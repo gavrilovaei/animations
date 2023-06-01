@@ -149,8 +149,7 @@ body {
 }
 
 .shoes-card:hover .shoes-card__buy-btn {
-  /* background-color: #012e72; */
-  background-color: red;
+  background-color: #012e72;
   transition: background-color 0.5s ease;
 }
 /*  */
