@@ -74,7 +74,15 @@ body {
 
 .shoes-card__img img {
   z-index: 1;
+/* 2.анимация поворота картинки при наведении на карточку товара */
+  transition: transform 0.5s ease;
 }
+
+.shoes-card:hover .shoes-card__img img {
+  transform: rotate(-25deg);
+  transition: transform 0.5s ease;
+}
+/*  */
 
 .shoes-card__img::before {
   content: "";
@@ -85,7 +93,15 @@ body {
 
   background-color: #68bf2c;
   border-radius: 50%;
+  /* 1.анимация при наведении на карточку, в которой фоновый цвет карточки меняется на цвет круга внутри неё */
+  transition: transform 0.5s ease;
 }
+
+.shoes-card:hover .shoes-card__img::before {
+  transform: scale(3);
+  transition: transform 0.5s ease;
+}
+/*  */
 
 .shoes-card__img--gold::before {
   background-color: #ffd215;
@@ -122,13 +138,19 @@ body {
   border: none;
   border-radius: 100px;
   cursor: pointer;
+  /* 3.анимация при наведении на кнопку */
+  transition: box-shadow 15s ease, background-color 0.5s ease;
 }
 
 .shoes-card__buy-btn:hover,
 .shoes-card__buy-btn:focus {
   box-shadow: 0 0 20px 0 #0066ff;
+  transition: box-shadow 0.5s ease;
 }
 
 .shoes-card:hover .shoes-card__buy-btn {
-  background-color: #012e72;
+  /* background-color: #012e72; */
+  background-color: red;
+  transition: background-color 0.5s ease;
 }
+/*  */
