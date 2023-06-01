@@ -139,7 +139,7 @@ body {
   border-radius: 100px;
   cursor: pointer;
   /* 3.анимация при наведении на кнопку */
-  transition: box-shadow 15s ease, background-color 0.5s ease;
+  transition: box-shadow 0.5s ease, background-color 0.5s ease;
 }
 
 .shoes-card__buy-btn:hover,
@@ -150,6 +150,6 @@ body {
 
 .shoes-card:hover .shoes-card__buy-btn {
   background-color: #012e72;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease 0.2s;
 }
 /*  */
