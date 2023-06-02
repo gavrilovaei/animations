@@ -26,6 +26,37 @@ body {
   color: #435a6b;
 }
 
+.link--1::before {
+  content: "[";
+  left: -7px;
+}
+
+.link--1::after {
+  content: "]";
+  right: -7px;
+}
+
+.link--1::before,
+.link--1::after {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease 0.1s;
+}
+
+.link--1:hover::before,
+.link--1:focus::before {
+  opacity: 1;
+  transform: translateX(-9px);
+  transition: opacity 0.1s ease, transform 0.3s ease 0.1s;
+}
+
+.link--1:hover::after,
+.link--1:focus::after {
+  opacity: 1;
+  transform: translateX(9px);
+  transition: opacity 0.3s ease, transform 0.3s ease 0.1s;
+}
+
 .link--2 {
   color: #f19f0f;
   padding: 8px 0;
