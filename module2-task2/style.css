@@ -82,9 +82,40 @@ body {
 }
 
 .link--3 {
-  color: #cd4436;
+  color: rgba(205, 68, 54, 0);
   padding: 0 4px;
   height: 1em;
+  /*  */
+  overflow: hidden;
+}
+/*  */
+.link--3::before {
+  content: attr(data-before);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #cd4436;
+  transition: transform 0.3s ease;
+}
+/*  */
+.link--3::after {
+  content: attr(data-after);
+  color: #cd4436;
+  font-weight: bolder;
+  position: absolute;
+  left: 0;
+  bottom: -30px;
+  transition: transform 0.3s ease;
+}
+/*  */
+.link--3:hover::before,
+.link--3:focus::before {
+  transform: translateY(-30px);
+}
+/*  */
+.link--3:hover::after,
+.link--3:focus::after {
+  transform: translateY(-25px);
 }
 
 .link--4 {
