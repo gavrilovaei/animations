@@ -123,6 +123,40 @@ body {
   padding: 0 20px;
   height: 50px;
   line-height: 50px;
+  display: inline-block;
+}
+/*  */
+.link--4::before,
+.link--4::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 50px;
+  background-color: #435a6b;
+  opacity: 0.2;
+  transition: transform 0.3s ease, opasity 0.3s ease;
+}
+/*  */
+.link--4::before {
+  left: 0;
+  top: 0;
+}
+/*  */
+.link--4::after {
+  right: 0;
+  top: 0;
+}
+/*  */
+.link--4:hover::before,
+.link--4:focus::before {
+  transform: translate(82px,-50%) rotate(90deg);
+  opacity: 1;
+}
+/*  */
+.link--4:hover::after,
+.link--4:focus::after {
+  transform: translate(-82px, 50%) rotate(90deg);
+  opacity: 1;
 }
 
 .link--5 {
