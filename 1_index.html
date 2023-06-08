@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <style>
+      div {
+         height: 100px;
+         width: 500px;
+         background-color: aquamarine;
+         margin: 100px;
+         position: relative;
+      }
+
+      div::before {
+         content: "";
+         position: absolute;
+         height: 100%;
+         width: 1%;
+         top: 0;
+         left: 0;
+         background-color: brown;
+         transition: transform 1s ease;
+      }
+
+      div::after {
+         content: "";
+         position: absolute;
+         height: 100%;
+         width: 1%;
+         top: 0;
+         right: 0;
+         background-color: brown;
+         transition: transform 1s ease;
+      }
+
+      div:hover::before {
+         transform: translate(4950%, -50%) rotate(90deg);
+      }
+
+      div:hover::after {
+         transform: translate(-4950%, 50%) rotate(90deg);
+      }
+   </style>
+</head>
+
+<body>
+   <div></div>
+</body>
+
+</html>
