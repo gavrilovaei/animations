@@ -131,7 +131,7 @@ body {
   content: "";
   position: absolute;
   width: 2px;
-  height: 50px;
+  height: 45px;
   background-color: #435a6b;
   opacity: 0.2;
   transition: transform 0.3s ease, opasity 0.3s ease;
@@ -149,13 +149,13 @@ body {
 /*  */
 .link--4:hover::before,
 .link--4:focus::before {
-  transform: translate(82px,-50%) rotate(90deg);
+  transform: translate(82px,-50%) rotate(-90deg);
   opacity: 1;
 }
 /*  */
 .link--4:hover::after,
 .link--4:focus::after {
-  transform: translate(-82px, 50%) rotate(90deg);
+  transform: translate(-82px, 50%) rotate(-90deg);
   opacity: 1;
 }
 
