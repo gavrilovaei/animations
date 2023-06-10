@@ -23,12 +23,39 @@ body {
   position: relative;
   display: inline-block;
 }
+/* Для первой кнопки добавим дополнительную обёртку и data-атрибут data-hover. Создадим позиционированный псевдоэлемент ::before с текстом data-атрибута.
 
+При наведении и фокусе обёртка и псевдоэлемент сдвигаются направо с помощью transform: translateX. */
 .button--1 {
   color: #ffffff;
+  /* background-color: #007aff; */
+  /* padding: 20px 30px; */
+  overflow: hidden;
+}
+/*  */
+.button--1 span {
+  display: block;
   background-color: #007aff;
   padding: 20px 30px;
+  transition: transform 0.3s;
 }
+/*  */
+.button--1 span::before {
+  content: attr(data-text);
+  position: absolute;
+  display: block;
+  top: 0;
+  left: -100%;
+  padding: 20px 30px;
+  background-color: #d5e7fb;
+  color: #007aff;
+}
+/*  */
+.button--1:hover span,
+.button--1:focus span {
+  transform: translateX(100%);
+}
+/*  */
 
 .button--2 {
   border: 3px solid #007aff;

@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <p>
-      <button class="button button--1"><span>
-        Lorem ipsum</span>
-      </button>
-    </p>
 
-    <p>
-      <button class="button button--2">
-        Lorem ipsum
-      </button>
-    </p>
-    <p>
-      <button class="button button--3">
-        Lorem ipsum
-      </button>
-    </p>
-    <p>
-      <button class="button button--4">
-        Lorem ipsum
-      </button>
-    </p>
-    <p>
-      <button class="button button--5">
-        Lorem ipsum
-      </button>
-    </p>
-    <p>
-      <button class="button button--6">
-        Lorem ipsum
-      </button>
-    </p>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <p>
+    <button class="button button--1"><span data-text="Lorem ipsum">
+        Lorem ipsum</span>
+    </button>
+  </p>
+
+  <p>
+    <button class="button button--2">
+      Lorem ipsum
+    </button>
+  </p>
+  <p>
+    <button class="button button--3">
+      Lorem ipsum
+    </button>
+  </p>
+  <p>
+    <button class="button button--4">
+      Lorem ipsum
+    </button>
+  </p>
+  <p>
+    <button class="button button--5">
+      Lorem ipsum
+    </button>
+  </p>
+  <p>
+    <button class="button button--6">
+      Lorem ipsum
+    </button>
+  </p>
+</body>
+
 </html>
+<!-- В этом задании вам предстоит добавить анимации при наведении и фокусе для нескольких кнопок. Исходное состояние менять не нужно, продумайте состояния при наведении и фокусе, добавьте плавность для анимаций.
+
+Воспользуйтесь подсказками, они помогут вам в работе с элементами:
+
+Для первой кнопки потребуется дополнительная обёртка и data-атрибут, который будет добавлен в псевдоэлемент. При наведении и фокусе обёртка и псевдоэлемент сдвигаются направо с помощью transform: translateX. Для фонового цвета псевдоэлемента используйте #d5e7fb.
+
+У второй кнопки будет псевдоэлемент с фоновым цветом #d5e7fb. При наведении псевдоэлемент будет занимать 90% ширины кнопки, а при фокусе — 100%. Используйте transform: scaleX или clip-path и прозрачность.
+
+У третьей кнопки псевдоэлемент меняет размер при изменении значения transform: scaleY или clip-path. А цвет текста меняется на белый.
+
+У четвёртой кнопки два псевдоэлемента с цветами фона #9534F5 и #FD079B меняют размер при помощи transform: scale(X, Y) или clip-path. Цвет текста меняется на белый.
+
+У пятой кнопки уже есть один псевдоэлемент с левой частью. Используйте второй псевдоэлемент для создания белого квадрата, повёрнутого на 45 градусов, чтобы создать стрелку. При наведении или фокусе на кнопке стрелка увеличивается в масштабе с помощью transform: scale(). Фоновый цвет меняется на #f58500.
+
+Шестой кнопке потребуется дополнительная обёртка в виде тега span и псевдоэлемент со стрелкой. При наведении и фокусе span и псевдоэлемент вмещаются при помощи transform: translateX. -->
