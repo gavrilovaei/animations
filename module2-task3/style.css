@@ -149,12 +149,12 @@ body {
   color: #000000;
   /* background-color: #9534F5; */
   /* background-color: #FD079B; */
+  transition: color 0.3s;
 }
 /*  */
 .button--4:hover,
 .button--4:focus {
   color: #ffffff;
-  transition: color 0.3s;
 }
 /*  */
 .button--4::before,
@@ -233,6 +233,13 @@ body {
   padding: 25px 60px 25px 120px;
   border-radius: 10px;
   color: #ffffff;
+  /*  */
+  transition: background-color 0.3s;
+}
+/*  */
+.button--5:hover,
+.button--5:focus {
+  background-color: #f58500;
 }
 
 .button--5::before {
@@ -252,6 +259,26 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   background-size: 26px;
+}
+/*  */
+.button--5::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #ffffff;
+  top: 50%;
+  left: 55px;
+  /* margin позволит передвинуть псевдоэлемент на половину его размера обратно, чтобы он оказался по центру */
+  margin: -10px 0 0 -10px;
+  transform: rotate(45deg) scale(1); 
+  z-index: 1;
+  transition: transform 0.3s;
+}
+/*  */
+.button--5:hover::after,
+.button--5:focus::after {
+  transform: rotate(45deg) scale(1.3);
 }
 
 .button--6 {
