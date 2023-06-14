@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title>2.18. Ошибка влияния анимации элемента на окружающие его элементы</title>
+   <style>
+      body {
+         padding: 50px;
+
+         background-color: #2d2d44;
+      }
+
+      .btn {
+         padding: 16px 22px;
+
+         font-weight: 500;
+         font-size: 20px;
+         line-height: 100%;
+         color: #ffffff;
+         text-decoration: none;
+
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+      }
+
+      .wrapper {
+         display: flex;
+         padding: 20px;
+      }
+
+      .wrapper .btn:first-of-type {
+         margin-right: 50px;
+      }
+
+      .btn--bad {
+         background-color: rgba(0, 0, 0, 0);
+         border: 2px solid #3c6ed0;
+
+         transition: border 0.3s ease;
+      }
+
+      .btn--bad:hover,
+      .btn--bad:focus {
+         /*  */
+         border: 4px solid #3c6ed0;
+      }
+
+      .btn--good {
+         background-color: rgba(0, 0, 0, 0);
+         box-shadow: 0 0 0 2px #3c6ed0;
+
+         transition: box-shadow 0.3s ease;
+      }
+
+      .btn--good:hover,
+      .btn--good:focus {
+         /*  */
+         box-shadow: 0 0 0 4px #3c6ed0;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="wrapper">
+      <button class="btn btn--bad" type="button">border bad</button>
+      <button class="btn btn--good" type="button">box-shadow good</button>
+   </div>
+</body>
+
+</html>

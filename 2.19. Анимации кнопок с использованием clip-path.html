@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title>2.19. Анимации кнопок с использованием clip-path</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         font-family: "Montserrat", "Arial", sans-serif;
+         background-color: #111111;
+      }
+
+      .wrap {
+         padding: 30px;
+      }
+
+      .btn {
+         position: relative;
+         z-index: 1;
+
+         width: 200px;
+         min-height: 38px;
+         padding: 10px;
+         margin: 20px;
+
+         font-weight: 700;
+         color: #ffffff;
+         text-transform: uppercase;
+
+         background-color: rgba(0, 0, 0, 0);
+         border: none;
+         box-shadow: inset 0 0 0 1px #006c84;
+         cursor: pointer;
+      }
+
+      .btn::before,
+      .btn::after {
+         content: "";
+         position: absolute;
+         z-index: -1;
+
+         background-color: #006c84;
+
+         transition: clip-path 0.3s ease;
+      }
+
+      /* Для анимации первой кнопки создаётся псевдоэлемент ::before и анимируется свойство clip-path со значением polygon. Сначала элемент как бы сжат слева, а при наведении занимает размер кнопки. */
+      .btn--1::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+      }
+
+      .btn--1:hover::before,
+      .btn--1:focus::before {
+         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+
+      /* Для анимации второй кнопки псевдоэлемент сжимается в центре кнопки, а при наведении — занимает весь её размер. */
+      .btn--2::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+      }
+
+      .btn--2:hover::before,
+      .btn--2:focus::before {
+         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+
+      /* Для анимации третьей кнопки используются оба псевдоэлемента. Один расположен справа, другой — слева. clip-path: inset создаёт два встроенных прямоугольника, которые растягиваются по горизонтали к центру кнопки. */
+      .btn--3::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         clip-path: inset(0 100% 0 0);
+      }
+
+      .btn--3::after {
+         top: 0;
+         right: 0;
+
+         width: 100%;
+         height: 100%;
+
+         clip-path: inset(0 0 0 100%);
+      }
+
+      .btn--3:hover::before,
+      .btn--3:focus::before {
+         clip-path: inset(0 49% 0 0);
+      }
+
+      .btn--3:hover::after,
+      .btn--3:focus::after {
+         clip-path: inset(0 0 0 49%);
+      }
+
+      .btn--4 {
+         box-shadow: none;
+      }
+
+      /* У четвёртой кнопки анимируются оба псевдоэлемента. ::before хранит прямоугольник, у которого нет фона, а только левая и правая линии рамки. Сам прямоугольник сжат к нижней грани кнопки, при наведении растягивается по её высоте.
+Псевдоэлемент ::after представляет собой прямоугольник, который имеет фоновый цвет и сжат у верхней грани кнопки. Он разворачивается с задержкой в 0,3 секунды после ::before. */
+      .btn--4::before {
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         background-color: rgba(0, 0, 0, 0);
+
+         border-left: 1px solid #006c84;
+         border-right: 1px solid #006c84;
+
+         clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+         transition: clip-path 0.3s ease 0.3s;
+      }
+
+      .btn--4::after {
+         top: 0;
+         right: 0;
+
+         width: 100%;
+         height: 100%;
+
+         clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+         transition: clip-path 0.3s ease;
+      }
+
+      .btn--4:hover::before,
+      .btn--4:focus::before {
+         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+         transition: clip-path 0.3s ease;
+      }
+
+      .btn--4:hover::after,
+      .btn--4:focus::after {
+         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+         transition: clip-path 0.3s ease 0.3s;
+      }
+   </style>
+</head>
+
+<body>
+   <div class="wrap">
+      <button class="btn btn--1" type="button">clip-path</button>
+      <button class="btn btn--2" type="button">clip-path</button>
+      <button class="btn btn--3" type="button">clip-path</button>
+      <button class="btn btn--4" type="button">clip-path</button>
+   </div>
+</body>
+
+</html>

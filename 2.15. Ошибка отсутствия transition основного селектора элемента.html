@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8" />
+   <title>2.15. Ошибка отсутствия transition основного селектора элемента</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet" />
+   <style>
+      /* 1. В изначальном состоянии уже есть вёрстка и оформление карточки. */
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+      }
+
+      .tools {
+         padding: 50px;
+         background-color: #24305e;
+      }
+
+      .tools-card {
+         position: relative;
+         z-index: 1;
+
+         display: flex;
+         flex-direction: column;
+         width: 350px;
+         padding: 24px 0;
+         overflow: hidden;
+
+         font-family: "Montserrat", "Arial", sans-serif;
+
+         background-color: #374785;
+         border-radius: 10px;
+
+         justify-self: center;
+         /* 5.1 Исправим ситуацию, правильно разместив переход в исходном состоянии карточки и кнопки.
+Теперь плавность изменения свойств работает и при наведении, и когда мышь уходит с кнопки или карточки. */
+         transition: background-color 0.6s ease, box-shadow 0.6s ease;
+      }
+
+      /* 2.  При наведении на неё появляется тень.  */
+      .tools-card:hover {
+         background-color: #1c2757;
+         box-shadow: 0 10px 40px #a8d0e67e;
+         /* 4.1 Частой ошибкой является указание transition только у состояния наведения.
+ наведение срабатывает верно, но когда курсор убирается, смена состояний происходит мгновенно. */
+         /* transition: background-color 0.6s ease, box-shadow 0.6s ease; */
+      }
+
+      .tools-card::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: -1;
+
+         width: 100%;
+         height: 100%;
+
+         background-color: #a8d0e6;
+         transform: translateY(-60%) skewY(-10deg);
+      }
+
+      .tools-card::after {
+         content: attr(data-brand);
+         position: absolute;
+         top: 80%;
+         left: 50%;
+         z-index: -1;
+
+         font-weight: 700;
+         font-size: 80px;
+         line-height: 100%;
+         text-align: center;
+         color: rgba(0, 0, 0, 0.1);
+         white-space: nowrap;
+
+         transform: translate(-50%, -50%);
+      }
+
+      .tools-card__img {
+         margin-bottom: 20px;
+      }
+
+      .tools-card__content {
+         display: flex;
+         flex-grow: 1;
+         flex-direction: column;
+         padding: 20px;
+      }
+
+      .tools-card__title {
+         margin: 0 0 20px 0;
+
+         font-weight: 500;
+         font-size: 24px;
+         color: #ffffff;
+      }
+
+      .tools-card__buy-btn {
+         align-self: flex-start;
+         margin-top: auto;
+         padding: 8px 24px;
+
+         font-weight: 500;
+         font-size: 24px;
+         line-height: 150%;
+         font-family: inherit;
+         color: #ffffff;
+
+         background-color: #f76c6c;
+         border: none;
+         border-radius: 10px;
+         cursor: pointer;
+         /* 5.2 Исправим ситуацию, правильно разместив переход в исходном состоянии карточки и кнопки.
+Теперь плавность изменения свойств работает и при наведении, и когда мышь уходит с кнопки или карточки. */
+         transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* 3.  При наведении на кнопку «Купить» свойства этой кнопки тоже меняются.
+Задача: сделать анимацию плавной. */
+      .tools-card__buy-btn:hover {
+         color: #f76c6c;
+         background-color: #f8e9a1;
+         /* 4.2 Частой ошибкой является указание transition только у состояния наведения.
+ наведение срабатывает верно, но когда курсор убирается, смена состояний происходит мгновенно. */
+         /* transition: background-color 0.3s ease, color 0.3s ease; */
+      }
+   </style>
+</head>
+
+<body>
+   <section class="tools">
+      <div class="tools__wrapper">
+         <article class="tools__card tools-card" data-brand="Tekton">
+            <div class="tools-card__img">
+               <img src="tools-card-2.png" width="350" height="220" alt="Инструменты" />
+            </div>
+            <div class="tools-card__content">
+               <h2 class="tools-card__title">Набор гаечных ключей, 12&nbsp;шт.</h2>
+               <button class="tools-card__buy-btn" type="button">Купить</button>
+            </div>
+         </article>
+      </div>
+   </section>
+</body>
+
+</html>
