@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title></title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         background-color: #000000;
+      }
+
+      .container {
+         padding: 50px;
+      }
+
+      .rotate-img {
+         /*  Имя анимации */
+         animation-name: rotate-img;
+         /* Один поворот на 360 градусов займёт пять секунд, чтобы текст можно было успеть прочитать.  */
+         animation-duration: 5s;
+         /* Ускорение во временной функции не нужно, ведь картинка должна вращаться равномерно и постоянно. */
+         animation-timing-function: linear;
+         animation-iteration-count: infinite;
+      }
+
+      /* Теперь опишем шаги анимации. Изначально элемент не повёрнут, что означает transform: rotate(0deg). Поэтому шаг from(0%) можем пропустить и указать только последний — поворот против часовой стрелки на 360 градусов. В конце анимации элемент оказывается в том же положении, что и в начале, анимация повторяется снова и снова. */
+      @keyframes rotate-img {
+         100% {
+            transform: rotate(-360deg);
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+      <img class="rotate-img" src="text.png" alt="Защита от дождя и холода" width="179" height="179">
+   </div>
+</body>
+
+</html>
