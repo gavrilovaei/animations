@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="utf-8">
+   <title></title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap" rel="stylesheet">
+   <style>
+      /* Стрелка движется не постоянно, а периодически, подсказывая пользователю, что ниже тоже есть что-то интересное. Чтобы ссылка не смещалась, анимируем не её, а псевдоэлемент. */
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         width: 100%;
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         background-color: #000000;
+      }
+
+      .container {
+         padding: 50px;
+      }
+
+      .transform-animation {
+         position: relative;
+         display: inline-block;
+
+         width: 170px;
+         height: 82px;
+
+         /* Раскомментируйте обводку правила .transform-animation, чтобы увидеть подробнее. */
+         /* outline: 1px solid #fff; */
+      }
+
+      /* сделаем анимируемой не саму ссылку, а её псевдоэлемент с фоновой картинкой. Как видно по обводке, ссылка остаётся на месте, а псевдоэлемент анимируется. */
+      .transform-animation::before {
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+
+         width: 100%;
+         height: 100%;
+
+         background-image: url("arrow.png");
+         background-repeat: no-repeat;
+         background-size: contain;
+
+         /* Назовём анимацию arrow-moving. Один круг анимации будет занимать пять секунд. Движение сделаем равномерным linear и станем повторять его бесконечно infinite. */
+         animation-name: arrow-moving;
+         animation-duration: 5s;
+         animation-timing-function: linear;
+         animation-iteration-count: infinite;
+      }
+
+      /* Теперь распишем кадры: стрелка большую часть времени остаётся на месте и делает несколько раз движение вниз/вверх. Начинаем не с самого начала 0%, а позднее: от 0% до 42% стрелка не движется, затем с 42% до 46% движется вниз, с 46% до 50% — обратно вверх, с 50% до 54% движется снова вверх, с 54% до 58% возвращается в изначальное положение. Таким образом, за пять секунд стрелка делает два таких движения. Чтобы движения были равномерными и вверх, и вниз, интервалы делают одинаковыми по 4% времени. */
+      @keyframes arrow-moving {
+
+         42%,
+         50%,
+         58% {
+            transform: translateY(0);
+         }
+
+         46%,
+         54% {
+            transform: translateY(20px);
+         }
+      }
+   </style>
+</head>
+
+<body>
+   <div class="container">
+      <a class="transform-animation" href="#" aria-label="Переход к следующему экрану"></a>
+   </div>
+</body>
+
+</html>
