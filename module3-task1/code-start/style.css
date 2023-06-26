@@ -60,6 +60,21 @@ body {
   margin: 0;
   position: absolute;
   z-index: 2;
+
+  animation-name: running-text;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes running-text {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
 }
 
 .promo__box {
@@ -68,8 +83,8 @@ body {
 }
 
 .promo__img {
- max-width: 100%;
- display: block;
+  max-width: 100%;
+  display: block;
 }
 
 .promo__badge {
