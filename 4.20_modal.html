@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Анимация плавного появления модального окна</title>
+   <style>
+      body {
+         font-family: Arial;
+         padding: 30px;
+         margin: 0;
+      }
+
+      .btn {
+         padding: 10px 20px;
+         background-color: #2d2d44;
+         color: #ffffff;
+         font-size: 18px;
+         border: none;
+         font-family: inherit;
+      }
+
+      .btn:hover,
+      .btn:focus {
+         background-color: #2d2d44d1;
+      }
+
+      .btn:active {
+         opacity: 0.8;
+      }
+
+      .modal {
+         position: fixed;
+         top: 0;
+         left: 0;
+         bottom: 0;
+         right: 0;
+
+         padding: 30px;
+         background-color: #80808070;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+
+         /* 1) Рассмотрим исходное состояние: есть разметка и подготовлены стили. */
+         pointer-events: none;
+         /* 4b) Добавим переход для свойств transform и opacity, появление будет происходить 0,3 секунды, а закрытие быстрее — 0,1 секунды. */
+         opacity: 0;
+
+         transform: scale(1.15);
+         transition: transform 0.1s cubic-bezier(0.465, 0.183, 0.153, 0.946),
+            opacity 0.1s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+      }
+
+      /* 2) Для открытия и закрытия модального окна у него будет переключаться класс .modal--open. */
+      .modal--open {
+         pointer-events: auto;
+         /* 4a) Добавим переход для свойств transform и opacity, появление будет происходить 0,3 секунды, а закрытие быстрее — 0,1 секунды. */
+         opacity: 1;
+
+         transform: scale(1);
+         transition:
+            transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946),
+            opacity 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+      }
+
+      .modal-wrapper {
+         padding: 30px;
+         background-color: #fff;
+         max-width: 600px;
+         width: 80%;
+         border-radius: 20px;
+         text-align: center;
+      }
+   </style>
+</head>
+
+<body>
+
+   <button type="button" class="btn btn--open-modal">open modal</button>
+
+   <div class="modal">
+      <div class="modal-wrapper">
+         <h2 class="modal-title">Hello!</h2>
+         <button type="button" class="btn btn--close-modal">ok</button>
+      </div>
+   </div>
+
+   <script>
+      'use strict'
+
+      // 3) Допишем переключение классов: найдём кнопки и модальное окно, добавим слушатели событий кнопкам и напишем callback-функцию с переключением классов.
+      // Отлично! Теперь окно открывается и закрывается. Можно добавить анимацию.
+      const btnOpen = document.querySelector('.btn--open-modal');
+      const btnClose = document.querySelector('.btn--close-modal');
+      const modal = document.querySelector('.modal');
+
+      const modalViewHandler = () => {
+         modal.classList.toggle('modal--open');
+      }
+
+      btnOpen.addEventListener('click', modalViewHandler);
+      btnClose.addEventListener('click', modalViewHandler);
+
+   </script>
+</body>
+
+</html>
