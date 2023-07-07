@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Анимация появления всплывающей подсказки</title>
+   <style>
+      body {
+         font-size: 20px;
+         font-family: Arial;
+         line-height: 2em;
+      }
+
+      .has-tooltip {
+         display: inline-block;
+         white-space: nowrap;
+         color: tomato;
+         text-decoration: underline;
+         text-decoration-style: dashed;
+         position: relative;
+         cursor: pointer;
+      }
+
+      /* В разметке у элемента с классом has-tooltip есть data-атрибут с текстом подсказки. Она будет появляться при клике на текст и скрываться при повторном клике. */
+      .has-tooltip::after {
+         content: attr(data-tooltip);
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         z-index: 2;
+
+         max-width: 250px;
+         padding: 10px;
+         background-color: purple;
+         color: #fff;
+         line-height: 1;
+
+         /* Чтобы подсказка была скрыта, ей задаётся прозрачность opacity: 0. pointer-events делает подсказку неуловимой для мыши, а transform задаёт небольшое смещение. */
+         pointer-events: none;
+         transform: translatey(50%);
+         opacity: 0;
+
+         transition: transform 0.5s ease-in, opacity 0.5s ease-in;
+      }
+
+      /* За счёт второго класса animated-tooltip псевдоэлемент будет плавно появляться сверху вниз. Добавим свойства для этого перехода. */
+      .animated-tooltip::after {
+         transform: translatey(100%);
+         opacity: 1;
+         transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      }
+   </style>
+</head>
+
+<body>
+   <main>
+      <p>Odio dolorum repudiandae deserunt rerum, dolores minima dolore similique quis natus provident, ipsam harum vel?
+         Lorem ipsum dolor sit amet, <span data-tooltip="Я подсказка"
+            class="has-tooltip">consectetur&nbsp;adipisicing</span> elit. Odio dolorum repudiandae deserunt rerum,
+         placeat dignissimos veniam vero! <span data-tooltip="Я тоже подсказка" class="has-tooltip">Laboriosam deserunt
+            iusto dolores</span> minima dolore similique quis natus provident, ipsam harum vel?</p>
+   </main>
+   <script>
+      'use strict'
+
+      //       Найдём все элементы с классом has-tooltip и для каждого добавим слушатель событий с колбэком переключения класса animated-tooltip.
+
+      // Готово! Анимация работает для каждой всплывающей подсказки.
+      const tooltips = document.querySelectorAll('.has-tooltip');
+
+      tooltips.forEach((tooltip) => {
+         tooltip.addEventListener('click', onTooltipClick);
+      });
+
+      function onTooltipClick(evt) {
+         evt.currentTarget.classList.toggle('animated-tooltip');
+      }
+   </script>
+</body>
+
+</html>
