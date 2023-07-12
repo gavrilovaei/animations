@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Бесконечный слайдер изображений с анимацией fade</title>
+   <style>
+      html,
+      body {
+         margin: 0;
+         padding: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #fff;
+         font-family: Arial;
+      }
+
+      .wrap {
+         max-width: 600px;
+         margin: 0 auto;
+         padding: 20px 0;
+      }
+
+      .slider {
+         background-color: #eee;
+         position: relative;
+         height: 400px;
+         overflow: hidden;
+      }
+
+      .slider-btn {
+         position: absolute;
+         top: 0px;
+         bottom: 0px;
+         z-index: 101;
+         padding: 10px 5px;
+         background-color: transparent;
+         border: none;
+         cursor: pointer;
+      }
+
+      .slider-btn--prev {
+         left: 0px;
+      }
+
+      .slider-btn--prev img {
+         transform: rotate(180deg);
+      }
+
+      .slider-btn--next {
+         right: 0px;
+      }
+
+      .slider-img {
+         max-width: 100%;
+         height: 400px;
+         display: block;
+         object-fit: cover;
+      }
+
+      .slider-item {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+
+         opacity: 0;
+
+         /* 2) За анимацию будет отвечать класс слайда slider-item--current. Он будет добавляться к текущему слайду. Для него указываем переход прозрачности. */
+         transition: opacity 0.5s ease;
+      }
+
+      /* 2) */
+      .slider-item--current {
+         opacity: 1;
+      }
+   </style>
+</head>
+
+<body>
+
+   <!-- 1) Рассмотрим задачу создания бесконечного слайдера изображений. Переход между слайдами будет с плавным изменением прозрачности. -->
+   <div class="wrap">
+      <section class="slider">
+         <div class="slider-item slider-item--current">
+            <img class="slider-img" src="slide-1.jpg" alt="slide">
+         </div>
+         <div class="slider-item">
+            <img class="slider-img" src="slide-2.jpg" alt="slide">
+         </div>
+         <div class="slider-item">
+            <img class="slider-img" src="slide-3.jpg" alt="slide">
+         </div>
+
+         <button type="button" class="slider-btn slider-btn--prev">
+            <img src="arrow.svg" alt="prev">
+         </button>
+         <button type="button" class="slider-btn slider-btn--next">
+            <img src="arrow.svg" alt="next">
+         </button>
+      </section>
+   </div>
+
+   <script>
+      'use strict'
+
+      // 3) Найдём все элементы и сохраним в переменные. Переменная counter будет счётчиком слайдов. Добавим кнопкам обработчики события клика.
+      const sliderBox = document.querySelector('.slider');
+      const slides = sliderBox.querySelectorAll('.slider-item');
+      const btnPrev = sliderBox.querySelector('.slider-btn--prev');
+      const btnNext = sliderBox.querySelector('.slider-btn--next');
+
+      let counter = 0;
+
+      btnNext.addEventListener('click', function () {
+         // 4) При клике на кнопку «Вперёд» у прошлого слайда убираем класс slider-item--current. Затем увеличиваем счётчик и находим номер текущего слайда. Добавляем класс slider-item--current на текущий слайд. Чтобы слайдер был бесконечным, добавляем проверку счётчика, чтобы после последнего слайда в разметке снова шёл первый.
+         slides[counter].classList.toggle('slider-item--current');
+         counter++;
+         if (counter >= slides.length) {
+            counter = 0;
+         }
+         slides[counter].classList.toggle('slider-item--current');
+      });
+
+      btnPrev.addEventListener('click', function () {
+         // 5последн) То же самое делаем при клике на кнопку «Назад». Разница лишь в том, что счётчик уменьшается на единицу, а проверку делаем при переходе от первого слайда к последнему в разметке. Слайдер плавно перелистывается в обе стороны.
+         slides[counter].classList.toggle('slider-item--current');
+         counter--;
+         if (counter < 0) {
+            counter = slides.length - 1;
+         }
+         slides[counter].classList.toggle('slider-item--current');
+      });
+   </script>
+</body>
+
+</html>
