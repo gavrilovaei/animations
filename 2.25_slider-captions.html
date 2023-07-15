@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Анимация изображений и подписи слайдера</title>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow:wght@700&display=swap" rel="stylesheet">
+   <style>
+      * {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         margin: 0;
+         padding: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #fff;
+         font-family: Arial;
+      }
+
+      .wrap {
+         max-width: 600px;
+         margin: 0 auto;
+         padding: 20px 0;
+      }
+
+      .visually-hidden {
+         position: absolute;
+         clip: rect(0 0 0 0);
+         width: 1px;
+         height: 1px;
+         margin: -1px;
+      }
+
+      .slider {
+         background-color: #eee;
+         position: relative;
+         height: 400px;
+         overflow: hidden;
+      }
+
+      .slider-btn {
+         position: absolute;
+         top: 0px;
+         bottom: 0px;
+         z-index: 101;
+         padding: 10px 5px;
+         background-color: transparent;
+         border: none;
+         cursor: pointer;
+      }
+
+      .slider-btn:disabled {
+         opacity: 0.5;
+      }
+
+      .slider-btn--prev {
+         left: 0px;
+      }
+
+      .slider-btn--prev img {
+         transform: rotate(180deg);
+      }
+
+      .slider-btn--next {
+         right: 0px;
+      }
+
+      .slider-item {
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+
+         display: grid;
+         grid-template-columns: 1fr;
+         grid-template-rows: 3fr 1fr;
+         gap: 20px;
+
+         transform: translateX(100%);
+
+         transition: transform 0.5s ease;
+      }
+
+      .slider-item--current {
+         transform: translateX(0%);
+         transition: transform 0.5s ease;
+      }
+
+      .slider-img {
+         grid-row: 1 / 3;
+         grid-column: 1 / 2;
+         z-index: 10;
+      }
+
+      .slider-title {
+         grid-row: 1 / 2;
+         grid-column: 1 / 2;
+         z-index: 20;
+         font-family: 'PT Sans Narrow', sans-serif;
+         font-weight: 700;
+         line-height: 120%;
+         font-size: 40px;
+         color: #fff;
+         text-transform: uppercase;
+         padding: 0 60px;
+         align-self: end;
+         margin: 0;
+      }
+
+      .slider-title-line {
+         display: block;
+
+         transform: translateX(50px);
+         opacity: 0;
+
+         transition: transform 0.4s ease, opacity 0.4s ease;
+      }
+
+      .slider-title-line:nth-child(1) {
+         transition-delay: 0.3s;
+      }
+
+      .slider-title-line:nth-child(2) {
+         transition-delay: 0.4s;
+      }
+
+      .slider-title-line:nth-child(3) {
+         transition-delay: 0.5s;
+      }
+
+      .slider-item--current .slider-title-line {
+         transform: translateX(0px);
+         opacity: 1;
+      }
+   </style>
+</head>
+
+<body>
+
+   <div class="wrap">
+      <section class="slider">
+         <h2 class="visually-hidden">Мы предлагаем</h2>
+         <!-- 1) В карточке слайда добавился заголовок, состоящий из трёх строк .slider-title-line. -->
+         <div class="slider-item slider-item--current">
+            <img class="slider-img" src="slide-1.jpg" alt="slide">
+            <h3 class="slider-title">
+               <span class="slider-title-line">Производство</span>
+               <span class="slider-title-line">волшебных изделий</span>
+               <span class="slider-title-line">из металла и дерева</span>
+            </h3>
+         </div>
+         <div class="slider-item">
+            <img class="slider-img" src="slide-2.jpg" alt="slide">
+            <h3 class="slider-title">
+               <span class="slider-title-line">Металлический</span>
+               <span class="slider-title-line">декор для дома</span>
+               <span class="slider-title-line">и дачи</span>
+            </h3>
+         </div>
+         <div class="slider-item">
+            <img class="slider-img" src="slide-3.jpg" alt="slide">
+            <h3 class="slider-title">
+               <span class="slider-title-line">Ковка дизайнерских</span>
+               <span class="slider-title-line">каминов, перил</span>
+               <span class="slider-title-line">и скульптур</span>
+            </h3>
+         </div>
+
+         <!-- 2) Кнопкам будет добавляться состояние disabled, когда пользователь долистает до слайда с краю. -->
+         <button type="button" class="slider-btn slider-btn--prev" disabled>
+            <img src="arrow.svg" alt="prev">
+         </button>
+         <button type="button" class="slider-btn slider-btn--next">
+            <img src="arrow.svg" alt="next">
+         </button>
+      </section>
+   </div>
+
+   <script>
+      'use strict'
+      // 3) Анимация будет добавляться к слайду и его элементам по классу slider-item--current. Сам слайд с картинкой будет выезжать справа налево за 0,5 секунды. А далее с небольшой задержкой и сдвигом появятся линии заголовка.Найдём все слайды, кнопки-переключатели. Определим счётчик counter и максимальное количество слайдов maxStep. Первому слайду добавим класс slider-item--current.Кнопкам добавим слушатели событий клика. Колбэки напишем отдельными функциями. Они будут разные, так как действия при переключении вперёд и назад будут отличаться.
+      const sliderBox = document.querySelector(".slider");
+      const slides = sliderBox.querySelectorAll(".slider-item");
+      const btnPrev = sliderBox.querySelector(".slider-btn--prev");
+      const btnNext = sliderBox.querySelector(".slider-btn--next");
+
+      let counter = 0;
+      const maxStep = slides.length - 1;
+      slides[counter].classList.add("slider-item--current");
+
+      // 4) Так как слайдер будет конечным, то кнопки «Вперёд» и «Назад» нужно будет блокировать, добавляя атрибут disabled. Для этого напишем две вспомогательные функции, которые будут принимать счётчик. Если текущий слайд первый, заблокируем кнопку «Назад». А если слайд последний, то кнопку «Вперёд».
+      function isFirst(counter) {
+         if (counter === 0) {
+            btnPrev.setAttribute("disabled", "disabled");
+         } else {
+            btnPrev.removeAttribute("disabled", "disabled");
+         }
+      }
+
+      function isLast(counter) {
+         if (counter === maxStep) {
+            btnNext.setAttribute("disabled", "disabled");
+         } else {
+            btnNext.removeAttribute("disabled", "disabled");
+         }
+      }
+
+      function nextBtnHandler() {
+         // 5) Убираем у текущего слайда класс slider-item--current. Чтобы слайд не уезжал направо и остался зафиксированным, добавим инлайн transform: translate(0%).
+         slides[counter].classList.remove("slider-item--current");
+         slides[counter].setAttribute("style", "transform: translate(0%)");
+
+         // 6) Увеличиваем счётчик и проверяем, нужно ли блокировать кнопки.
+         counter++;
+         isLast(counter);
+         isFirst(counter);
+
+         // 7) Добавляем текущему слайду класс slider-item--current.
+         slides[counter].classList.add("slider-item--current");
+      }
+
+      function prevBtnHandler() {
+         // 8) Теперь допишем пролистывание слайдера назад. У текущего слайда убираем класс slider-item--current. Уменьшаем счётчик на единицу, проверяем кнопки, добавляем класс slider-item--current текущему слайду, убираем инлайновые стили.
+         slides[counter].classList.remove("slider-item--current");
+
+         counter--;
+         isLast(counter);
+         isFirst(counter);
+
+         slides[counter].classList.add("slider-item--current");
+         slides[counter].removeAttribute("style");
+      }
+
+      btnNext.addEventListener("click", nextBtnHandler);
+      btnPrev.addEventListener("click", prevBtnHandler);
+   </script>
+</body>
+
+</html>
