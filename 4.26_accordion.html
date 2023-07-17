@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <style>
+      * {
+         box-sizing: border-box;
+      }
+
+      html,
+      body {
+         margin: 0;
+         padding: 0;
+         width: 100%;
+         height: 100%;
+         background-color: #fff;
+         font-family: Arial;
+      }
+
+      .accordeon {
+         padding: 20px;
+         width: 100%;
+         font-family: Arial, sans-serif;
+      }
+
+      .accordeon__item {
+         border-bottom: 1px solid #444444;
+         padding-bottom: 10px;
+      }
+
+      .accordeon__title {
+         width: 100%;
+         margin: 0px;
+         padding: 0px;
+         padding-top: 20px;
+
+         background-color: #ffffff;
+         border: none;
+
+         cursor: pointer;
+         text-align: start;
+         font-size: 18px;
+         font-family: inherit;
+
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+      }
+
+      .accordeon__title::after {
+         content: '\25B2';
+         font-size: 14px;
+         transform: rotate(90deg);
+         transition: transform 0.3s ease;
+      }
+
+      /* 2) Открытая вкладка будет иметь класс accordeon__title--active. По нему будет происходить анимация псевдоэлемента со стрелкой. */
+      .accordeon__title--active::after {
+         transform: rotate(180deg);
+         transition: transform 0.3s ease;
+      }
+
+      .accordeon__descr {
+         padding-top: 10px;
+         font-size: 14px;
+         max-height: 0;
+         overflow: hidden;
+         transition: opacity 0.3s ease, max-height 0.3s ease;
+         opacity: 0;
+      }
+
+      /* 3) Для текста вкладки будет добавлен класс accordeon__descr--visible. Изначально высота вкладки равна нулю. Для анимации используется свойство max-height, так как значение height: auto не анимируется, ведь нет точного числа. При использовании max-height контент будет открыт ровно настолько, сколько текста будет во вкладке. */
+      .accordeon__descr--visible {
+         opacity: 1;
+      }
+   </style>
+</head>
+
+<body>
+
+   <section class="accordeon">
+      <!-- 1)  Каждая вкладка состоит из кнопки-заголовка и открывающегося блока с каким-то контентом. -->
+      <div class="accordeon__item">
+         <button type="button" class="accordeon__title">First Header</button>
+         <div class="accordeon__descr">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni reprehenderit eum exercitationem sit harum,
+            adipisci iusto a tenetur quis voluptates aspernatur nam. Consequatur beatae, animi quidem veniam cupiditate
+            possimus dolore.
+         </div>
+      </div>
+      <div class="accordeon__item">
+         <button type="button" class="accordeon__title">Second Header</button>
+         <div class="accordeon__descr">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+         </div>
+      </div>
+      <div class="accordeon__item">
+         <button type="button" class="accordeon__title">Third Header</button>
+         <div class="accordeon__descr">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, fuga. Obcaecati amet eum odio dolor esse
+            beatae officia, impedit sed.
+         </div>
+      </div>
+   </section>
+
+   <script>
+      'use strict'
+
+      // 4) Найдём все вкладки, для каждой добавим слушатель события клика. Будем записывать описание вкладки, по которой произошёл клик в переменную clickedDescr.
+      const accordeon = document.querySelector(".accordeon");
+      const accordeonTitles = accordeon.querySelectorAll(".accordeon__title");
+
+      // Метод повторного использования call() является предопределенным методом JavaScript. С помощью метода call() вы можете написать метод, который можно использовать для различных объектов. Может использоваться для вызова (указания) метода с объектом-владельцем в качестве аргумента (параметра). https://www.schoolsw3.com/js/js_function_call.php#:~:text=%D0%9C%D0%B5%D1%82%D0%BE%D0%B4%20call%20()%20%D1%8F%D0%B2%D0%BB%D1%8F%D0%B5%D1%82%D1%81%D1%8F%20%D0%BF%D1%80%D0%B5%D0%B4%D0%BE%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%BC,%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%2C%20%D0%BF%D1%80%D0%B8%D0%BD%D0%B0%D0%B4%D0%BB%D0%B5%D0%B6%D0%B0%D1%89%D0%B8%D0%B9%20%D0%B4%D1%80%D1%83%D0%B3%D0%BE%D0%BC%D1%83%20%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%83
+      accordeonTitles.forEach.call(accordeonTitles, function (accordeonTitle) {
+         accordeonTitle.addEventListener("click", function () {
+            const clickedDescr = accordeonTitle.parentElement.querySelector(".accordeon__descr");
+
+            // 5) Меняем класс текущему элементу, по которому был сделан клик. Также переключаем класс описанию кликнутой вкладки.
+            accordeonTitle.classList.toggle("accordeon__title--active");
+            clickedDescr.classList.toggle("accordeon__descr--visible");
+
+            // 6) Теперь добавляем проверку на то, есть ли у описания вкладки класс активности. Если есть, то меняем инлайново высоту текстового описания вкладки, чтобы сработал переход. Иначе обнуляем высоту.
+            if (clickedDescr.classList.contains("accordeon__descr--visible")) {
+               // Свойства scrollWidth и scrollHeight возвращают всю высоту и ширину элемента, включая высоту и ширину, которые недоступны для просмотра (из-за переполнения). Это свойство доступно только для чтения.
+               clickedDescr.style.maxHeight = clickedDescr.scrollHeight + "px";
+            } else {
+               clickedDescr.style.maxHeight = null;
+            }
+         });
+      });
+   </script>
+</body>
+
+</html>
