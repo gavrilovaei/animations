@@ -113,11 +113,8 @@
       const accordeon = document.querySelector(".accordeon");
       const accordeonTitles = accordeon.querySelectorAll(".accordeon__title");
 
-      // Для коллекции ДОМэлементов не работают методы массивов такие как forEach и др. Чтобы перебрать коллекцию нужно использовать forEach.call() например:
-      // [].forEach.call(links, function(link) {
-      //    alert(link);
-      // });
-      accordeonTitles.forEach.call(accordeonTitles, function (accordeonTitle) {
+      // МОЙ ВАРИАНТ: использовала перебор коллекции циклом for...of вместо forEach.call()
+      for (const accordeonTitle of accordeonTitles) {
 
          accordeonTitle.addEventListener("click", function () {
             const clickedDescr = accordeonTitle.parentElement.querySelector(".accordeon__descr");
@@ -134,7 +131,7 @@
                clickedDescr.style.maxHeight = null;
             }
          });
-      });
+      };
    </script>
 </body>
 
