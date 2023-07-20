@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Табы с анимацией переключения</title>
+   <style>
+      *,
+      *::before,
+      *::after {
+         box-sizing: border-box;
+      }
+
+      body {
+         margin: 0;
+         font-family: Arial, sans-serif;
+      }
+
+      .wrapper {
+         padding: 50px 30px;
+      }
+
+      .content {
+         max-width: 600px;
+         width: 100%;
+         min-width: 260px;
+      }
+
+      .tabs {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         height: 80px;
+      }
+
+      .tablinks {
+         border: none;
+         outline: none;
+         cursor: pointer;
+         width: 25%;
+         height: 80px;
+         background-color: #efefef;
+         position: relative;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 16px;
+         font-family: Arial, sans-serif;
+         overflow: hidden;
+
+         /* 2) Добавим небольшую анимацию при наведении на кнопку вкладки. Используем псевдоэлемент ::before, разворачивая его по размеру кнопки при наведении. Не забудем переопределить стили текста, чтобы он был хорошо виден. */
+         transition: transform 0.3s ease;
+      }
+
+      .tablinks:before {
+         content: "";
+         background-color: #667eea;
+         width: 100%;
+         height: 100%;
+         position: absolute;
+         top: 0;
+         left: 0;
+         z-index: 2;
+
+         transform-origin: center top;
+         transform: scaleY(0);
+         transition: transform 0.3s ease-in-out;
+      }
+
+      .tablinks:hover::before {
+         transform: scaleY(1);
+      }
+
+      /* 3) Добавим оформление активной кнопке, чтобы отличить её от других. Увеличим элемент по вертикали с помощью scaleY и добавим полосу с помощью того же псевдоэлемента ::before. */
+      .tablinks-active {
+         z-index: 0;
+         transform: scaleY(1.25);
+         transform-origin: center bottom;
+         overflow: hidden;
+      }
+
+      .tablinks-active::before {
+         content: "";
+         background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         transform: scaleY(1);
+         height: 5px;
+      }
+
+      .tablinks span {
+         z-index: 2;
+         padding: 0;
+         margin: 0;
+         font-weight: 400;
+         color: #686868;
+
+         transition: color 0.5s ease;
+      }
+
+      .tablinks:hover span {
+         color: #ffffff;
+      }
+
+      /* 4) Чтобы текст внутри кнопки не растягивался, добавим ему противоположную трансформацию. Такой приём — не всегда хорошая практика, ведь в общем случае не получится сделать так, чтобы во время анимации текст не трансформировался. Так как timing-function будет необратной к временной функции родителя, в процессе движения эти масштабирования не компенсируют друг друга. */
+      .tablinks-active span {
+         transform: scaleY(0.80);
+         color: #000000;
+      }
+
+      .tablinks-active:hover span {
+         color: #000000;
+      }
+
+      .wrapper-tabcontent {
+         background-color: #efefef;
+         z-index: -3;
+         position: relative;
+         top: 0;
+         opacity: 1;
+         padding: 40px 60px;
+         overflow: hidden;
+      }
+
+      .tabcontent {
+         display: none;
+         min-height: 180px;
+      }
+
+      .tabcontent-active {
+         display: block;
+      }
+
+      .wrapper-tabcontent:after {
+         content: "";
+         height: 5px;
+         width: 100%;
+         position: absolute;
+         background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+         left: 0;
+         bottom: 0;
+         z-index: -2;
+      }
+
+      .tabcontent h3 {
+         margin: 0;
+         font-size: 40px;
+         writing-mode: vertical-lr;
+
+         position: absolute;
+         left: 0px;
+         top: 35px;
+         opacity: 0.1;
+         padding: 0;
+
+         /* 8a) Допишем анимацию для блоков контента. Она будет срабатывать каждый раз при открытии вкладки. */
+         animation: city 1s ease;
+      }
+
+      @keyframes city {
+         from {
+            transform: translateY(-30px);
+         }
+
+         to {
+            transform: translateY(0px);
+         }
+      }
+
+      .tabcontent p {
+         width: 100%;
+         margin: 0;
+         padding: 0;
+
+         font-size: 16px;
+         color: #686868;
+         line-height: 28px;
+         font-weight: 100;
+
+         /* 8b) Допишем анимацию для блоков контента. Она будет срабатывать каждый раз при открытии вкладки. */
+         animation: fadeEffect 0.6s ease;
+      }
+
+      @keyframes fadeEffect {
+         from {
+            opacity: 0;
+            transform: translateY(30px);
+         }
+
+         to {
+            opacity: 1;
+            transform: translateY(0px);
+         }
+      }
+   </style>
+</head>
+
+<body>
+
+   <!-- 1) Табы состоят из блока кнопок-заголовков и блока контента каждой вкладки. Чтобы сопоставить вкладку контенту для кнопки добавим data-атрибут, а для блока с контентом — идентификатор. Открытая вкладка имеет второй класс tablinks-active, а её контент — tabcontent-active, они будут добавляться при клике новым элементам. -->
+   <section class="wrapper">
+      <div class="content">
+         <div class="tabs">
+            <button class="tablinks tablinks-active active" data-country="London"><span>London</span></button>
+            <button class="tablinks" data-country="Paris"><span>Paris</span></button>
+            <button class="tablinks" data-country="Barcelona"><span>Barcelona</span></button>
+            <button class="tablinks" data-country="Madrid"><span>Madrid</span></button>
+         </div>
+
+         <div class="wrapper-tabcontent">
+            <div id="London" class="tabcontent tabcontent-active">
+               <h3>London</h3>
+               <p>London is the capital of Great Britain. It is one of the greatest cities in the world. It is an
+                  important business and financial centre. It is an intellectual centre, too. Everywhere in London,
+                  there are open spaces: Hyde Park and Regent Park are the largest. The City is the oldest part of
+                  London. </p>
+            </div>
+            <div id="Paris" class="tabcontent">
+               <h3>Paris</h3>
+               <p>Paris is in the Paris department of the Paris-Isle-of-France region The French historic, political and
+                  economic capital, with a population of only 2.5 million is located in the northern part of France. One
+                  of the most beautiful cities in the world. Home to historical monuments such as Notre Dame, the Eiffel
+                  tower (320m), Bastille, Louvre and many more. </p>
+            </div>
+            <div id="Barcelona" class="tabcontent">
+               <h3>Barcelona</h3>
+               <p>Barcelona has been an urban laboratory since the high Medieval Ages. A place of diversity, a backdrop
+                  for a multiplicity of social and cultural processes on multiple scales that reflect different ways of
+                  constructing the future, a city with a long experience of urban life and social innovations. </p>
+            </div>
+            <div id="Madrid" class="tabcontent">
+               <h3>Madrid</h3>
+               <p>Madrid is in the middle of Spain, in the Community of Madrid. The Community is a large area that
+                  includes the city as well as small towns and villages outside the city. 7 million people live in the
+                  Community. More than 3 million live in the city itself.
+               </p>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <script>
+      'use strict'
+
+      // 5) Напишем логику переключения вкладок, чтобы можно было удобнее «отладить» анимацию. Найдём все кнопки и контент вкладок, добавим слушатели события.
+      const tabLinks = document.querySelectorAll(".tablinks");
+      const tabContents = document.querySelectorAll(".tabcontent");
+
+      tabLinks.forEach(function (element) {
+         element.addEventListener("click", openTabs);
+      });
+
+      function openTabs(evt) {
+         // 6) Получим из data-атрибута кнопки идентификатор блока контента.
+         const btnTarget = evt.currentTarget;
+         const country = btnTarget.dataset.country;
+
+         // 7) Уберём со всех кнопок и блоков с контентом вторые классы с -active. И добавим только для выбранной вкладки. Идентификатор блока контента находим с помощью переменной country.
+         tabContents.forEach(function (item) {
+            item.classList.remove("tabcontent-active");
+         });
+
+         tabLinks.forEach(function (item) {
+            item.classList.remove("tablinks-active");
+         });
+
+         document.querySelector(`#${country}`).classList.add("tabcontent-active");
+
+         btnTarget.classList.add("tablinks-active");
+      }
+   </script>
+</body>
+
+</html>
