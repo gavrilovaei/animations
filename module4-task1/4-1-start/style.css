@@ -93,7 +93,8 @@ body {
 .main-nav__item {
   opacity: 0;
   transform: translateY(-20px);
-  transition: transform 0.3s ease 0.8s, opacity 0.3s ease 0s;
+  transition: transform 0.3s ease 0.8s,
+  opacity 0.3s ease 0s;
 }
 
 .main-nav__item:nth-child(1) {
@@ -224,6 +225,14 @@ body {
   grid-template-columns: 1fr;
   grid-template-rows: 3fr 1fr;
   gap: 30px;
+
+  transform: translateX(100%);
+  transition: transform 0.5s ease;
+}
+
+.slider__item--current {
+  transform: translateX(0%);
+  transition: transform 0.5s ease;
 }
 
 .slider__img {
@@ -244,6 +253,17 @@ body {
   padding-left: 110px;
   align-self: end;
   margin: 0;
+
+  opacity: 0;
+  transform: translateY(-20px);
+
+  transition: transform 0.4s ease 0.5s, opacity 0.4s ease 0.5s;
+}
+
+.slider__item--current .slider__title,
+.slider__item--current .slider__text {
+  transform: translateY(0px);
+  opacity: 1;
 }
 
 .slider__text {
@@ -256,6 +276,12 @@ body {
   color: #FFFFFF;
   padding-left: 110px;
   margin: 0;
+
+  
+  opacity: 0;
+  transform: translateY(20px);
+
+  transition: transform 0.4s ease 0.5s, opacity 0.4s ease 0.5s;
 }
 
 .slider__togglers {
@@ -290,6 +316,11 @@ body {
 
 .slider__btn:hover .slider__btn-icon {
   fill: #43B031;
+}
+
+/*  */
+.slider__btn:disabled .slider__btn-icon {
+  fill: #fff;
 }
 
 .slider__btn--prev .slider__btn-icon {
